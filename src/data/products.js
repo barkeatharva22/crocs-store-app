@@ -1,0 +1,88 @@
+export const CATEGORIES = ['All', 'Classic Clogs', 'Sandals', 'Slides', 'Kids', 'Limited Edition'];
+
+export const INITIAL_PRODUCTS = [
+  {
+    id: 'p1',
+    name: 'Classic Clog',
+    category: 'Classic Clogs',
+    price: 49.99,
+    rating: 4.8,
+    reviews: 2145,
+    colors: ['#FFE600', '#111111', '#FF6FA5'],
+    sizes: [6, 7, 8, 9, 10, 11],
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7AY_88Nh--u0Dlvfq8NqIgnfJ06L4UJwqlSoRhhPbxv6488aw05LUjqdb&s=10',
+    tag: 'Bestseller',
+    description:
+      'The iconic silhouette that started it all. Lightweight, water-friendly, and endlessly comfortable, with ventilation ports for breathability.',
+  },
+  {
+    id: 'p2',
+    name: 'LiteRide Sandal',
+    category: 'Sandals',
+    price: 39.99,
+    rating: 4.6,
+    reviews: 987,
+    colors: ['#00C2A8', '#111111', '#FAFAFA'],
+    sizes: [6, 7, 8, 9, 10],
+    image: 'https://d18xazalilbrpm.cloudfront.net/media/catalog/product/cache/b54e524f228a02e212f4e89c89e1125b/2/0/207649_1du-1.jpg',
+    tag: 'New',
+    description:
+      'Ultra-light cushioning meets a sleek sport-sandal build. Adjustable strap for a locked-in, all-day comfortable fit.',
+  },
+  {
+    id: 'p3',
+    name: 'Classic Slide',
+    category: 'Slides',
+    price: 34.99,
+    rating: 4.7,
+    reviews: 1532,
+    colors: ['#111111', '#8A6FFF', '#FFE600'],
+    sizes: [6, 7, 8, 9, 10, 11, 12],
+    image: 'https://images.jdmagicbox.com/quickquotes/images_main/classic-crocs-turq-tonic-unisex-slide-2188541039-ir6p49ma.jpg',
+    tag: 'Bestseller',
+    description:
+      'Slip in and go. A contoured footbed and pivoting heel strap make this slide a warm-weather essential.',
+  },
+  {
+    id: 'p4',
+    name: 'Kids Fun Lab Clog',
+    category: 'Kids',
+    price: 29.99,
+    rating: 4.9,
+    reviews: 764,
+    colors: ['#FF6FA5', '#00C2A8', '#FFE600'],
+    sizes: [1, 2, 3, 4, 5],
+    image: 'https://www.crocs.in/media/catalog/product/2/1/212127_90h_alt110.jpg?width=820',
+    tag: 'Kids Favorite',
+    description:
+      'Playful colors and glitter finishes sized just right for little feet, with the same comfort grown-ups love.',
+  },
+  {
+    id: 'p5',
+    name: 'Cosmic Glow Clog',
+    category: 'Limited Edition',
+    price: 64.99,
+    rating: 5.0,
+    reviews: 312,
+    colors: ['#8A6FFF', '#111111'],
+    sizes: [7, 8, 9, 10],
+    image: 'https://m.media-amazon.com/images/I/61U4aJ+ls4L._AC_UY1000_.jpg',
+    tag: 'Limited',
+    description:
+      'A glow-in-the-dark finish and cosmic speckle pattern make this drop a collector favorite. Limited stock.',
+  },
+  {
+    id: 'p6',
+    name: 'Baya Platform Clog',
+    category: 'Classic Clogs',
+    price: 54.99,
+    rating: 4.5,
+    reviews: 601,
+    colors: ['#111111', '#FAFAFA', '#FF6FA5'],
+    sizes: [6, 7, 8, 9, 10],
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTskPjY59_BOAUPL7E0yP3n_havPrREU90NdC_h4PfNKo6zp0tjKoZcZDI&s=10',
+    tag: 'Trending',
+    description:
+      'The classic clog, elevated. A chunky platform sole adds height without sacrificing an ounce of comfort.',
+  },
+];

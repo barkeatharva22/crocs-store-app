@@ -1,0 +1,27 @@
+{
+  "expo": {
+    "name": "Crocs Store",
+    "slug": "crocs-store-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "backgroundColor": "#FFE600"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.crocsstore.app"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#FFE600"
+      },
+      "package": "com.crocsstore.app"
+    },
+    "web": {
+      "bundler": "metro"
+    }
+  }
+}
