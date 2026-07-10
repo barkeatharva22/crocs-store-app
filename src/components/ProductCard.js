@@ -51,7 +51,7 @@ export default function ProductCard({ product, onPress, style, tall = false }) {
         <View style={styles.topRow}>
           {!!product.tag ? (
             <View style={[styles.tag, product.tag === 'Limited' && styles.tagLimited]}>
-              <Text style={styles.tagText}>
+              <Text style={[styles.tagText, product.tag === 'Limited' && styles.tagTextLimited]}>
                 {product.tag === 'Limited' ? '✨ ' : ''}
                 {product.tag}
               </Text>
@@ -64,7 +64,7 @@ export default function ProductCard({ product, onPress, style, tall = false }) {
               <Ionicons
                 name={liked ? 'heart' : 'heart-outline'}
                 size={15}
-                color={liked ? colors.danger : colors.black}
+                color={liked ? colors.danger : colors.onPrimary}
               />
             </Animated.View>
           </TouchableWithoutFeedback>
@@ -104,7 +104,9 @@ const styles = StyleSheet.create({
     borderRadius: radius.lg,
     marginBottom: 16,
     overflow: 'hidden',
-    backgroundColor: colors.lightGray,
+    backgroundColor: colors.surfaceAlt,
+    borderWidth: 1,
+    borderColor: colors.border,
     ...shadow.card,
   },
   topRow: {
@@ -118,20 +120,26 @@ const styles = StyleSheet.create({
     zIndex: 2,
   },
   tag: {
-    backgroundColor: 'rgba(255,255,255,0.92)',
+    backgroundColor: 'rgba(13,13,13,0.72)',
+    borderWidth: 1,
+    borderColor: colors.border,
     paddingHorizontal: 9,
     paddingVertical: 4,
     borderRadius: radius.full,
   },
   tagLimited: {
-    backgroundColor: colors.accentPurple,
+    backgroundColor: colors.accentBlue,
+    borderColor: colors.accentBlue,
   },
   tagText: {
     ...type.micro,
-    color: colors.black,
+    color: colors.textPrimary,
+  },
+  tagTextLimited: {
+    color: colors.onPrimary,
   },
   heart: {
-    backgroundColor: 'rgba(255,255,255,0.92)',
+    backgroundColor: colors.primary,
     width: 28,
     height: 28,
     borderRadius: 14,
@@ -151,7 +159,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     alignSelf: 'flex-start',
-    backgroundColor: 'rgba(255,255,255,0.18)',
+    backgroundColor: 'rgba(255,255,255,0.12)',
     paddingHorizontal: 7,
     paddingVertical: 3,
     borderRadius: radius.full,
@@ -172,7 +180,7 @@ const styles = StyleSheet.create({
   price: {
     fontSize: 15,
     fontWeight: '800',
-    color: colors.white,
+    color: colors.primary,
   },
   colorDots: {
     flexDirection: 'row',
@@ -183,6 +191,6 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     marginLeft: -4,
     borderWidth: 1.5,
-    borderColor: colors.white,
+    borderColor: colors.bg,
   },
 });

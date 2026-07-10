@@ -50,7 +50,7 @@ export default function ShopScreen({ navigation }) {
       <View style={styles.header}>
         <Text style={styles.title}>Shop All</Text>
         <TouchableOpacity style={styles.sortBtn} onPress={() => setSortAsc((s) => !s)} activeOpacity={0.8}>
-          <Ionicons name="swap-vertical" size={16} color={colors.black} />
+          <Ionicons name="swap-vertical" size={16} color={colors.textPrimary} />
           <Text style={styles.sortText}>{sortAsc ? 'Price: Low' : 'Price: High'}</Text>
         </TouchableOpacity>
       </View>
@@ -99,7 +99,7 @@ export default function ShopScreen({ navigation }) {
           activeOpacity={0.85}
           onPress={() => navigation.navigate('AddProduct')}
         >
-          <Ionicons name="add" size={28} color={colors.black} />
+          <Ionicons name="add" size={28} color={colors.onPrimary} />
         </TouchableOpacity>
       </Animated.View>
     </View>
@@ -107,7 +107,7 @@ export default function ShopScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: colors.offWhite },
+  container: { flex: 1, backgroundColor: colors.bg },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -116,30 +116,32 @@ const styles = StyleSheet.create({
     paddingTop: 60,
     paddingBottom: 14,
   },
-  title: { fontSize: 24, fontWeight: '800', color: colors.black },
+  title: { fontSize: 24, fontWeight: '800', color: colors.textPrimary },
   sortBtn: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.white,
+    backgroundColor: colors.surface,
+    borderWidth: 1,
+    borderColor: colors.border,
     paddingHorizontal: 12,
     paddingVertical: 8,
     borderRadius: radius.full,
-    ...shadow.card,
   },
-  sortText: { fontSize: 11, fontWeight: '600', color: colors.black, marginLeft: 4 },
+  sortText: { fontSize: 11, fontWeight: '600', color: colors.textPrimary, marginLeft: 4 },
   categoryRow: { paddingHorizontal: 20, paddingBottom: 14, gap: 10 },
   categoryChip: {
     paddingHorizontal: 16,
     paddingVertical: 9,
     borderRadius: radius.full,
-    backgroundColor: colors.white,
+    backgroundColor: colors.surface,
+    borderWidth: 1,
+    borderColor: colors.border,
     marginRight: 10,
-    ...shadow.card,
   },
-  categoryChipActive: { backgroundColor: colors.black },
-  categoryText: { fontSize: 12, fontWeight: '600', color: colors.black },
-  categoryTextActive: { color: colors.white },
-  empty: { textAlign: 'center', color: colors.gray, marginTop: 40 },
+  categoryChipActive: { backgroundColor: colors.primary, borderColor: colors.primary },
+  categoryText: { fontSize: 12, fontWeight: '600', color: colors.textPrimary },
+  categoryTextActive: { color: colors.onPrimary },
+  empty: { textAlign: 'center', color: colors.textSecondary, marginTop: 40 },
   fabWrap: {
     position: 'absolute',
     right: 20,
@@ -152,6 +154,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     alignItems: 'center',
     justifyContent: 'center',
-    ...shadow.floating,
+    ...shadow.glow,
   },
 });

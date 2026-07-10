@@ -98,7 +98,7 @@ function TabButton({ routeName, focused, onPress, totalItems }) {
           <Ionicons
             name={focused ? meta.icon : meta.iconOutline}
             size={20}
-            color={focused ? colors.black : colors.gray}
+            color={focused ? colors.onPrimary : colors.textSecondary}
           />
           {showBadge && (
             <View style={styles.badge}>
@@ -171,7 +171,9 @@ const styles = StyleSheet.create({
   },
   tabBar: {
     flexDirection: 'row',
-    backgroundColor: colors.white,
+    backgroundColor: colors.surface,
+    borderWidth: 1,
+    borderColor: colors.border,
     borderRadius: radius.full,
     paddingVertical: 8,
     paddingHorizontal: 10,
@@ -194,7 +196,7 @@ const styles = StyleSheet.create({
   tabLabel: {
     fontSize: 12,
     fontWeight: '800',
-    color: colors.black,
+    color: colors.onPrimary,
   },
   badge: {
     position: 'absolute',
@@ -207,6 +209,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 3,
+    borderWidth: 1.5,
+    borderColor: colors.surface,
   },
   badgeText: { color: colors.white, fontSize: 8.5, fontWeight: '800' },
 });

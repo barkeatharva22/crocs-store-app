@@ -20,11 +20,11 @@ import { CATEGORIES } from '../data/products';
 import ConfettiBurst from '../components/ConfettiBurst';
 
 const COLOR_OPTIONS = [
-  { name: 'Yellow', hex: '#FFE600' },
-  { name: 'Black', hex: '#111111' },
+  { name: 'Lime', hex: '#C8FF3D' },
+  { name: 'Black', hex: '#0D0D0D' },
   { name: 'Pink', hex: '#FF6FA5' },
-  { name: 'Teal', hex: '#00C2A8' },
-  { name: 'Purple', hex: '#8A6FFF' },
+  { name: 'Teal', hex: '#00E0C7' },
+  { name: 'Blue', hex: '#4FA8FF' },
   { name: 'White', hex: '#FAFAFA' },
 ];
 
@@ -38,7 +38,7 @@ export default function AddProductScreen({ navigation }) {
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState(null);
-  const [selectedColors, setSelectedColors] = useState(['#FFE600']);
+  const [selectedColors, setSelectedColors] = useState(['#C8FF3D']);
   const [selectedSizes, setSelectedSizes] = useState([7, 8, 9]);
   const [burst, setBurst] = useState(0);
   const btnScale = useRef(new Animated.Value(1)).current;
@@ -116,12 +116,12 @@ export default function AddProductScreen({ navigation }) {
 
   return (
     <KeyboardAvoidingView
-      style={{ flex: 1, backgroundColor: colors.offWhite }}
+      style={{ flex: 1, backgroundColor: colors.bg }}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
-          <Ionicons name="arrow-back" size={20} color={colors.black} />
+          <Ionicons name="arrow-back" size={20} color={colors.textPrimary} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Add New Product</Text>
         <View style={{ width: 36 }} />
@@ -134,7 +134,7 @@ export default function AddProductScreen({ navigation }) {
             <Image source={{ uri: image }} style={styles.previewImage} />
           ) : (
             <View style={styles.imagePlaceholder}>
-              <Ionicons name="camera" size={30} color={colors.gray} />
+              <Ionicons name="camera" size={30} color={colors.textSecondary} />
               <Text style={styles.imagePlaceholderText}>Add Product Photo</Text>
             </View>
           )}
@@ -145,7 +145,7 @@ export default function AddProductScreen({ navigation }) {
         <TextInput
           style={styles.input}
           placeholder="e.g. Neon Splash Clog"
-          placeholderTextColor={colors.gray}
+          placeholderTextColor={colors.textSecondary}
           value={name}
           onChangeText={setName}
         />
@@ -173,7 +173,7 @@ export default function AddProductScreen({ navigation }) {
           <TextInput
             style={styles.priceInput}
             placeholder="0.00"
-            placeholderTextColor={colors.gray}
+            placeholderTextColor={colors.textSecondary}
             keyboardType="decimal-pad"
             value={price}
             onChangeText={setPrice}
@@ -199,7 +199,7 @@ export default function AddProductScreen({ navigation }) {
                   <Ionicons
                     name="checkmark"
                     size={16}
-                    color={c.hex === '#111111' ? colors.white : colors.black}
+                    color={c.hex === '#0D0D0D' ? colors.white : colors.onPrimary}
                   />
                 )}
               </TouchableOpacity>
@@ -231,7 +231,7 @@ export default function AddProductScreen({ navigation }) {
         <TextInput
           style={[styles.input, styles.textArea]}
           placeholder="Tell customers what makes this pair special..."
-          placeholderTextColor={colors.gray}
+          placeholderTextColor={colors.textSecondary}
           value={description}
           onChangeText={setDescription}
           multiline
@@ -242,7 +242,7 @@ export default function AddProductScreen({ navigation }) {
           <ConfettiBurst trigger={burst} originX={0.5} originY={0.5} />
           <Animated.View style={{ transform: [{ scale: btnScale }] }}>
             <TouchableOpacity style={styles.submitBtn} onPress={handleSubmit} activeOpacity={0.85}>
-              <Ionicons name="checkmark-circle" size={20} color={colors.black} />
+              <Ionicons name="checkmark-circle" size={20} color={colors.onPrimary} />
               <Text style={styles.submitText}>Publish Product</Text>
             </TouchableOpacity>
           </Animated.View>
@@ -265,20 +265,22 @@ const styles = StyleSheet.create({
     width: 36,
     height: 36,
     borderRadius: 18,
-    backgroundColor: colors.white,
+    backgroundColor: colors.surface,
+    borderWidth: 1,
+    borderColor: colors.border,
     alignItems: 'center',
     justifyContent: 'center',
-    ...shadow.card,
   },
-  headerTitle: { fontSize: 17, fontWeight: '800', color: colors.black },
+  headerTitle: { fontSize: 17, fontWeight: '800', color: colors.textPrimary },
   imagePicker: {
     width: '100%',
     aspectRatio: 1,
     borderRadius: radius.lg,
-    backgroundColor: colors.white,
+    backgroundColor: colors.surface,
+    borderWidth: 1,
+    borderColor: colors.border,
     marginBottom: 20,
     overflow: 'hidden',
-    ...shadow.card,
   },
   previewImage: { width: '100%', height: '100%' },
   imagePlaceholder: {
@@ -286,46 +288,49 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 2,
-    borderColor: colors.lightGray,
+    borderColor: colors.border,
     borderStyle: 'dashed',
     borderRadius: radius.lg,
   },
-  imagePlaceholderText: { color: colors.gray, marginTop: 8, fontWeight: '600', fontSize: 12 },
-  label: { fontSize: 13, fontWeight: '700', color: colors.black, marginBottom: 8, marginTop: 4 },
+  imagePlaceholderText: { color: colors.textSecondary, marginTop: 8, fontWeight: '600', fontSize: 12 },
+  label: { fontSize: 13, fontWeight: '700', color: colors.textPrimary, marginBottom: 8, marginTop: 4 },
   input: {
-    backgroundColor: colors.white,
+    backgroundColor: colors.surface,
+    borderWidth: 1,
+    borderColor: colors.border,
     borderRadius: radius.md,
     paddingHorizontal: 16,
     paddingVertical: 14,
     fontSize: 14,
-    color: colors.black,
+    color: colors.textPrimary,
     marginBottom: 18,
-    ...shadow.card,
   },
   textArea: { height: 100, textAlignVertical: 'top' },
   chip: {
     paddingHorizontal: 14,
     paddingVertical: 9,
     borderRadius: radius.full,
-    backgroundColor: colors.white,
+    backgroundColor: colors.surface,
+    borderWidth: 1,
+    borderColor: colors.border,
     marginRight: 10,
     marginBottom: 18,
-    ...shadow.card,
   },
-  chipActive: { backgroundColor: colors.black },
-  chipText: { fontSize: 12, fontWeight: '600', color: colors.black },
-  chipTextActive: { color: colors.white },
+  chipActive: { backgroundColor: colors.primary, borderColor: colors.primary },
+  chipText: { fontSize: 12, fontWeight: '600', color: colors.textPrimary },
+  chipTextActive: { color: colors.onPrimary },
   priceInputWrap: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.white,
+    backgroundColor: colors.surface,
+    borderWidth: 1,
+    borderColor: colors.border,
     borderRadius: radius.md,
     paddingHorizontal: 16,
     marginBottom: 18,
-    ...shadow.card,
   },
-  dollarSign: { fontSize: 16, fontWeight: '700', color: colors.gray, marginRight: 4 },
-  priceInput: { flex: 1, paddingVertical: 14, fontSize: 14, color: colors.black },
+  dollarSign: { fontSize: 16, fontWeight: '700', color: colors.textSecondary, marginRight: 4 },
+  priceInput: { flex: 1, paddingVertical: 14, fontSize: 14, color: colors.textPrimary },
   colorRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 12, marginBottom: 18 },
   colorSwatch: {
     width: 40,
@@ -334,22 +339,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: colors.lightGray,
+    borderColor: colors.border,
   },
-  colorSwatchSelected: { borderWidth: 2, borderColor: colors.black },
+  colorSwatchSelected: { borderWidth: 2, borderColor: colors.primary },
   sizeRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 10, marginBottom: 18 },
   sizeChip: {
     width: 44,
     height: 44,
     borderRadius: 12,
-    backgroundColor: colors.white,
+    backgroundColor: colors.surface,
+    borderWidth: 1,
+    borderColor: colors.border,
     alignItems: 'center',
     justifyContent: 'center',
-    ...shadow.card,
   },
-  sizeChipActive: { backgroundColor: colors.primary },
-  sizeChipText: { fontSize: 13, fontWeight: '700', color: colors.black },
-  sizeChipTextActive: { color: colors.black },
+  sizeChipActive: { backgroundColor: colors.primary, borderColor: colors.primary },
+  sizeChipText: { fontSize: 13, fontWeight: '700', color: colors.textPrimary },
+  sizeChipTextActive: { color: colors.onPrimary },
   submitBtn: {
     flexDirection: 'row',
     backgroundColor: colors.primary,
@@ -358,7 +364,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 10,
-    ...shadow.floating,
+    ...shadow.glow,
   },
-  submitText: { fontSize: 15, fontWeight: '800', color: colors.black, marginLeft: 8 },
+  submitText: { fontSize: 15, fontWeight: '800', color: colors.onPrimary, marginLeft: 8 },
 });

@@ -53,16 +53,16 @@ export default function HomeScreen({ navigation }) {
           <Text style={styles.title}>Find your perfect fit</Text>
         </View>
         <TouchableOpacity style={styles.avatar} activeOpacity={0.8}>
-          <Ionicons name="person" size={19} color={colors.black} />
+          <Ionicons name="person" size={19} color={colors.onPrimary} />
         </TouchableOpacity>
       </View>
 
       {/* Search */}
       <View style={styles.searchBar}>
-        <Ionicons name="search" size={18} color={colors.gray} />
+        <Ionicons name="search" size={18} color={colors.textSecondary} />
         <TextInput
           placeholder="Search clogs, slides, sandals..."
-          placeholderTextColor={colors.gray}
+          placeholderTextColor={colors.textSecondary}
           style={styles.searchInput}
           value={search}
           onChangeText={setSearch}
@@ -81,7 +81,7 @@ export default function HomeScreen({ navigation }) {
             style={StyleSheet.absoluteFill}
           />
           <LinearGradient
-            colors={['rgba(17,17,17,0)', 'rgba(17,17,17,0.15)', 'rgba(17,17,17,0.92)']}
+            colors={['rgba(13,13,13,0.15)', 'rgba(13,13,13,0.35)', 'rgba(13,13,13,0.96)']}
             locations={[0, 0.4, 1]}
             style={StyleSheet.absoluteFill}
           />
@@ -93,7 +93,7 @@ export default function HomeScreen({ navigation }) {
             <View style={styles.heroBottomRow}>
               <Text style={styles.heroSubtitle}>Limited drop · Glow-in-the-dark finish</Text>
               <View style={styles.heroArrow}>
-                <Ionicons name="arrow-forward" size={16} color={colors.black} />
+                <Ionicons name="arrow-forward" size={16} color={colors.onPrimary} />
               </View>
             </View>
           </View>
@@ -156,7 +156,7 @@ export default function HomeScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: colors.offWhite },
+  container: { flex: 1, backgroundColor: colors.bg },
   topBar: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -165,8 +165,8 @@ const styles = StyleSheet.create({
     paddingTop: 60,
     paddingBottom: 14,
   },
-  greeting: { ...type.caption, color: colors.gray },
-  title: { ...type.h1, color: colors.black, marginTop: 3 },
+  greeting: { ...type.caption, color: colors.textSecondary },
+  title: { ...type.h1, color: colors.textPrimary, marginTop: 3 },
   avatar: {
     width: 40,
     height: 40,
@@ -178,14 +178,15 @@ const styles = StyleSheet.create({
   searchBar: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.white,
+    backgroundColor: colors.surface,
+    borderWidth: 1,
+    borderColor: colors.border,
     marginHorizontal: 20,
     paddingHorizontal: 14,
     height: 46,
-    borderRadius: radius.full,
-    ...shadow.card,
+    borderRadius: radius.md,
   },
-  searchInput: { flex: 1, marginLeft: 8, fontSize: 14, color: colors.black },
+  searchInput: { flex: 1, marginLeft: 8, fontSize: 14, color: colors.textPrimary },
   heroWrap: {
     marginHorizontal: 20,
     marginTop: 20,
@@ -195,7 +196,9 @@ const styles = StyleSheet.create({
     height: width * 0.72,
     borderRadius: radius.xxl,
     overflow: 'hidden',
-    backgroundColor: colors.lightGray,
+    backgroundColor: colors.surfaceAlt,
+    borderWidth: 1,
+    borderColor: colors.border,
     ...shadow.deep,
   },
   heroContent: {
@@ -212,7 +215,7 @@ const styles = StyleSheet.create({
     borderRadius: radius.full,
     marginBottom: 10,
   },
-  heroBadgeText: { ...type.micro, color: colors.black },
+  heroBadgeText: { ...type.micro, color: colors.onPrimary },
   heroTitle: {
     fontSize: 32,
     fontWeight: '800',
@@ -226,7 +229,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   heroSubtitle: {
-    color: 'rgba(255,255,255,0.85)',
+    color: 'rgba(255,255,255,0.6)',
     fontSize: 12,
     fontWeight: '500',
     flex: 1,
@@ -242,7 +245,7 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     ...type.h2,
-    color: colors.black,
+    color: colors.textPrimary,
     marginHorizontal: 20,
     marginTop: 28,
     marginBottom: 12,
@@ -253,18 +256,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginRight: 20,
   },
-  count: { fontSize: 12, color: colors.gray, marginTop: 28 },
+  count: { fontSize: 12, color: colors.textSecondary, marginTop: 28 },
   categoryRow: { paddingHorizontal: 20, gap: 10 },
   categoryChip: {
     paddingHorizontal: 16,
     paddingVertical: 9,
     borderRadius: radius.full,
-    backgroundColor: colors.white,
+    backgroundColor: colors.surface,
+    borderWidth: 1,
+    borderColor: colors.border,
     marginRight: 10,
-    ...shadow.card,
   },
-  categoryChipActive: { backgroundColor: colors.black },
-  categoryText: { fontSize: 12, fontWeight: '600', color: colors.black },
-  categoryTextActive: { color: colors.white },
-  empty: { textAlign: 'center', color: colors.gray, marginTop: 30 },
+  categoryChipActive: { backgroundColor: colors.primary, borderColor: colors.primary },
+  categoryText: { fontSize: 12, fontWeight: '600', color: colors.textPrimary },
+  categoryTextActive: { color: colors.onPrimary },
+  empty: { textAlign: 'center', color: colors.textSecondary, marginTop: 30 },
 });

@@ -7,7 +7,8 @@ const CONFETTI_COLORS = [
   colors.accentPink,
   colors.accentTeal,
   colors.accentPurple,
-  colors.black,
+  colors.accentBlue,
+  colors.white,
 ];
 
 const PIECES = 14;

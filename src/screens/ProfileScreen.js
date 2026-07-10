@@ -34,7 +34,7 @@ export default function ProfileScreen({ navigation }) {
           <Text style={styles.userEmail}>seller@crocsstore.app</Text>
         </View>
         <TouchableOpacity style={styles.editBtn}>
-          <Ionicons name="pencil" size={14} color={colors.black} />
+          <Ionicons name="pencil" size={14} color={colors.onPrimary} />
         </TouchableOpacity>
       </View>
 
@@ -59,13 +59,13 @@ export default function ProfileScreen({ navigation }) {
         activeOpacity={0.85}
       >
         <View style={styles.bannerIcon}>
-          <Ionicons name="add" size={22} color={colors.black} />
+          <Ionicons name="add" size={22} color={colors.onPrimary} />
         </View>
         <View style={{ flex: 1, marginLeft: 12 }}>
           <Text style={styles.bannerTitle}>List a new product</Text>
           <Text style={styles.bannerSubtitle}>Add photos, pricing & details</Text>
         </View>
-        <Ionicons name="chevron-forward" size={18} color={colors.black} />
+        <Ionicons name="chevron-forward" size={18} color={colors.onPrimary} />
       </TouchableOpacity>
 
       <Text style={styles.sectionTitle}>Account</Text>
@@ -76,10 +76,10 @@ export default function ProfileScreen({ navigation }) {
             style={[styles.menuItem, idx !== MENU_ITEMS.length - 1 && styles.menuItemBorder]}
           >
             <View style={styles.menuIconWrap}>
-              <Ionicons name={item.icon} size={18} color={colors.black} />
+              <Ionicons name={item.icon} size={18} color={colors.textPrimary} />
             </View>
             <Text style={styles.menuLabel}>{item.label}</Text>
-            <Ionicons name="chevron-forward" size={16} color={colors.gray} />
+            <Ionicons name="chevron-forward" size={16} color={colors.textSecondary} />
           </TouchableOpacity>
         ))}
       </View>
@@ -95,22 +95,23 @@ export default function ProfileScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: colors.offWhite },
+  container: { flex: 1, backgroundColor: colors.bg },
   header: { paddingHorizontal: 20, paddingTop: 60, paddingBottom: 10 },
-  title: { fontSize: 24, fontWeight: '800', color: colors.black },
+  title: { fontSize: 24, fontWeight: '800', color: colors.textPrimary },
   profileCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.white,
+    backgroundColor: colors.surface,
+    borderWidth: 1,
+    borderColor: colors.border,
     marginHorizontal: 20,
     padding: 16,
     borderRadius: radius.lg,
     marginTop: 10,
-    ...shadow.card,
   },
-  avatar: { width: 56, height: 56, borderRadius: 28, backgroundColor: colors.lightGray },
-  userName: { fontSize: 16, fontWeight: '800', color: colors.black },
-  userEmail: { fontSize: 12, color: colors.gray, marginTop: 2 },
+  avatar: { width: 56, height: 56, borderRadius: 28, backgroundColor: colors.surfaceAlt },
+  userName: { fontSize: 16, fontWeight: '800', color: colors.textPrimary },
+  userEmail: { fontSize: 12, color: colors.textSecondary, marginTop: 2 },
   editBtn: {
     marginLeft: 'auto',
     width: 32,
@@ -123,14 +124,15 @@ const styles = StyleSheet.create({
   statsRow: { flexDirection: 'row', paddingHorizontal: 20, marginTop: 16, gap: 12 },
   statCard: {
     flex: 1,
-    backgroundColor: colors.white,
+    backgroundColor: colors.surface,
+    borderWidth: 1,
+    borderColor: colors.border,
     borderRadius: radius.md,
     paddingVertical: 16,
     alignItems: 'center',
-    ...shadow.card,
   },
-  statValue: { fontSize: 18, fontWeight: '800', color: colors.black },
-  statLabel: { fontSize: 11, color: colors.gray, marginTop: 4 },
+  statValue: { fontSize: 18, fontWeight: '800', color: colors.primary },
+  statLabel: { fontSize: 11, color: colors.textSecondary, marginTop: 4 },
   addProductBanner: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -139,43 +141,44 @@ const styles = StyleSheet.create({
     marginTop: 16,
     padding: 16,
     borderRadius: radius.lg,
-    ...shadow.soft,
+    ...shadow.glow,
   },
   bannerIcon: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: colors.white,
+    backgroundColor: 'rgba(13,13,13,0.15)',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  bannerTitle: { fontSize: 14, fontWeight: '800', color: colors.black },
-  bannerSubtitle: { fontSize: 11, color: colors.charcoal, marginTop: 2 },
+  bannerTitle: { fontSize: 14, fontWeight: '800', color: colors.onPrimary },
+  bannerSubtitle: { fontSize: 11, color: 'rgba(13,13,13,0.65)', marginTop: 2 },
   sectionTitle: {
     fontSize: 15,
     fontWeight: '800',
-    color: colors.black,
+    color: colors.textPrimary,
     marginHorizontal: 20,
     marginTop: 26,
     marginBottom: 10,
   },
   menuCard: {
-    backgroundColor: colors.white,
+    backgroundColor: colors.surface,
+    borderWidth: 1,
+    borderColor: colors.border,
     marginHorizontal: 20,
     borderRadius: radius.lg,
-    ...shadow.card,
   },
   menuItem: { flexDirection: 'row', alignItems: 'center', padding: 14 },
-  menuItemBorder: { borderBottomWidth: 1, borderBottomColor: colors.lightGray },
+  menuItemBorder: { borderBottomWidth: 1, borderBottomColor: colors.border },
   menuIconWrap: {
     width: 32,
     height: 32,
     borderRadius: 16,
-    backgroundColor: colors.offWhite,
+    backgroundColor: colors.surfaceAlt,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  menuLabel: { flex: 1, marginLeft: 12, fontSize: 13, fontWeight: '600', color: colors.black },
+  menuLabel: { flex: 1, marginLeft: 12, fontSize: 13, fontWeight: '600', color: colors.textPrimary },
   logoutBtn: {
     flexDirection: 'row',
     alignItems: 'center',

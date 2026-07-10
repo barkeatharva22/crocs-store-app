@@ -4,9 +4,9 @@
     "slug": "crocs-store-app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "dark",
     "splash": {
-      "backgroundColor": "#FFE600"
+      "backgroundColor": "#0D0D0D"
     },
     "assetBundlePatterns": ["**/*"],
     "newArchEnabled": true,
@@ -16,7 +16,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#FFE600"
+        "backgroundColor": "#0D0D0D"
       },
       "package": "com.crocsstore.app"
     },
