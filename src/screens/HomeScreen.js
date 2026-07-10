@@ -33,6 +33,7 @@ export default function HomeScreen({ navigation }) {
       toValue: 1,
       duration: 700,
       easing: Easing.out(Easing.cubic),
+
       useNativeDriver: true,
     }).start();
   }, []);

@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
-import { View, Text, StyleSheet, Animated } from 'react-native';
+import { View, Text, StyleSheet, Animated, Pressable } from 'react-native';
 import { colors, shadow, radius } from '../theme/colors';
 import { useCart } from '../context/CartContext';
 
@@ -89,10 +89,11 @@ function TabButton({ routeName, focused, onPress, totalItems }) {
 
   return (
     <Animated.View style={{ transform: [{ scale }] }}>
-      <View
-        onTouchEnd={onPress}
-        style={[styles.tabBtn, focused && styles.tabBtnActive]}
-      >
+      <Pressable
+  onPress={onPress}
+  style={[styles.tabBtn, focused && styles.tabBtnActive]}
+>
+      
         <View>
           <Ionicons
             name={focused ? meta.icon : meta.iconOutline}
@@ -106,7 +107,7 @@ function TabButton({ routeName, focused, onPress, totalItems }) {
           )}
         </View>
         {focused && <Text style={styles.tabLabel}>{meta.label}</Text>}
-      </View>
+      </Pressable>
     </Animated.View>
   );
 }
