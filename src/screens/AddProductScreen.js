@@ -18,6 +18,7 @@ import { colors, radius, shadow } from '../theme/colors';
 import { useProducts } from '../context/ProductContext';
 import { CATEGORIES } from '../data/products';
 import ConfettiBurst from '../components/ConfettiBurst';
+import { supabase } from '../lib/supabase';
 
 const COLOR_OPTIONS = [
   { name: 'Lime', hex: '#C8FF3D' },
@@ -41,6 +42,7 @@ export default function AddProductScreen({ navigation }) {
   const [selectedColors, setSelectedColors] = useState(['#C8FF3D']);
   const [selectedSizes, setSelectedSizes] = useState([7, 8, 9]);
   const [burst, setBurst] = useState(0);
+  const [publishing, setPublishing] = useState(false);
   const btnScale = useRef(new Animated.Value(1)).current;
 
   const toggleColor = (hex) => {
@@ -72,7 +74,27 @@ export default function AddProductScreen({ navigation }) {
     }
   };
 
-  const handleSubmit = () => {
+  const uploadImageAsync = async (localUri) => {
+    const response = await fetch(localUri);
+    const arrayBuffer = await response.arrayBuffer();
+    const extMatch = localUri.match(/\.(\w+)$/);
+    const ext = extMatch ? extMatch[1].toLowerCase() : 'jpg';
+    const contentType = ext === 'png' ? 'image/png' : 'image/jpeg';
+    const filePath = `products/${Date.now()}.${ext}`;
+
+    const { error: uploadError } = await supabase.storage
+      .from('crocs-product-images')
+      .upload(filePath, arrayBuffer, { contentType });
+
+    if (uploadError) {
+      throw uploadError;
+    }
+
+    const { data } = supabase.storage.from('crocs-product-images').getPublicUrl(filePath);
+    return data.publicUrl;
+  };
+
+  const handleSubmit = async () => {
     if (!name.trim()) {
       Alert.alert('Missing name', 'Please enter a product name.');
       return;
@@ -91,27 +113,42 @@ export default function AddProductScreen({ navigation }) {
       return;
     }
 
-    addProduct({
-      name: name.trim(),
-      category,
-      price: parsedPrice,
-      description: description.trim() || 'No description provided.',
-      image: image || `https://picsum.photos/seed/${Date.now()}/600/600`,
-      colors: selectedColors,
-      sizes: selectedSizes,
-    });
+    setPublishing(true);
+    try {
+      let imageUrl = `https://picsum.photos/seed/${Date.now()}/600/600`;
+      if (image) {
+        imageUrl = await uploadImageAsync(image);
+      }
 
-    setBurst((b) => b + 1);
-    Animated.sequence([
-      Animated.spring(btnScale, { toValue: 1.1, useNativeDriver: true, speed: 40 }),
-      Animated.spring(btnScale, { toValue: 1, useNativeDriver: true, friction: 3 }),
-    ]).start();
+      await addProduct({
+        name: name.trim(),
+        category,
+        price: parsedPrice,
+        description: description.trim() || 'No description provided.',
+        image: imageUrl,
+        colors: selectedColors,
+        sizes: selectedSizes,
+      });
 
-    setTimeout(() => {
-      Alert.alert('Product added! 🎉', `"${name}" is now live in your shop.`, [
-        { text: 'OK', onPress: () => navigation.goBack() },
-      ]);
-    }, 300);
+      setBurst((b) => b + 1);
+      Animated.sequence([
+        Animated.spring(btnScale, { toValue: 1.1, useNativeDriver: true, speed: 40 }),
+        Animated.spring(btnScale, { toValue: 1, useNativeDriver: true, friction: 3 }),
+      ]).start();
+
+      setTimeout(() => {
+        Alert.alert('Product added! 🎉', `"${name}" is now live in your shop.`, [
+          { text: 'OK', onPress: () => navigation.goBack() },
+        ]);
+      }, 300);
+    } catch (err) {
+      Alert.alert(
+        'Publish failed',
+        err?.message || 'Something went wrong while publishing this product. Please try again.'
+      );
+    } finally {
+      setPublishing(false);
+    }
   };
 
   return (
@@ -241,9 +278,20 @@ export default function AddProductScreen({ navigation }) {
         <View>
           <ConfettiBurst trigger={burst} originX={0.5} originY={0.5} />
           <Animated.View style={{ transform: [{ scale: btnScale }] }}>
-            <TouchableOpacity style={styles.submitBtn} onPress={handleSubmit} activeOpacity={0.85}>
-              <Ionicons name="checkmark-circle" size={20} color={colors.onPrimary} />
-              <Text style={styles.submitText}>Publish Product</Text>
+            <TouchableOpacity
+              style={[styles.submitBtn, publishing && styles.submitBtnDisabled]}
+              onPress={handleSubmit}
+              activeOpacity={0.85}
+              disabled={publishing}
+            >
+              <Ionicons
+                name={publishing ? 'cloud-upload-outline' : 'checkmark-circle'}
+                size={20}
+                color={colors.onPrimary}
+              />
+              <Text style={styles.submitText}>
+                {publishing ? 'Publishing...' : 'Publish Product'}
+              </Text>
             </TouchableOpacity>
           </Animated.View>
         </View>
@@ -366,5 +414,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     ...shadow.glow,
   },
+  submitBtnDisabled: { opacity: 0.6 },
   submitText: { fontSize: 15, fontWeight: '800', color: colors.onPrimary, marginLeft: 8 },
 });

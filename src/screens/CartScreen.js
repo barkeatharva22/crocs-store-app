@@ -63,7 +63,7 @@ export default function CartScreen() {
         <Animated.View
           style={{ transform: [{ translateY: bobTranslate }, { rotate: bobRotate }] }}
         >
-          <Ionicons name="bag-outline" size={72} color={colors.border} />
+          <Ionicons name="bag-outline" size={72} color={colors.lightGray} />
         </Animated.View>
         <Text style={styles.emptyTitle}>Your cart is empty</Text>
         <Text style={styles.emptySubtitle}>Add some comfy Crocs to get started! 👟</Text>
@@ -99,11 +99,11 @@ export default function CartScreen() {
 
             <View style={styles.qtyControls}>
               <TouchableOpacity style={styles.qtyBtn} onPress={() => updateQty(index, -1)}>
-                <Ionicons name="remove" size={16} color={colors.textPrimary} />
+                <Ionicons name="remove" size={16} color={colors.black} />
               </TouchableOpacity>
               <Text style={styles.qtyText}>{item.qty}</Text>
               <TouchableOpacity style={styles.qtyBtn} onPress={() => updateQty(index, 1)}>
-                <Ionicons name="add" size={16} color={colors.textPrimary} />
+                <Ionicons name="add" size={16} color={colors.black} />
               </TouchableOpacity>
             </View>
 
@@ -140,7 +140,7 @@ export default function CartScreen() {
             activeOpacity={0.85}
           >
             <Text style={styles.checkoutText}>Checkout</Text>
-            <Ionicons name="arrow-forward" size={18} color={colors.onPrimary} />
+            <Ionicons name="arrow-forward" size={18} color={colors.black} />
           </TouchableOpacity>
         </View>
       </View>
@@ -149,7 +149,7 @@ export default function CartScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: colors.bg },
+  container: { flex: 1, backgroundColor: colors.offWhite },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -158,45 +158,42 @@ const styles = StyleSheet.create({
     paddingTop: 60,
     paddingBottom: 16,
   },
-  title: { fontSize: 24, fontWeight: '800', color: colors.textPrimary },
+  title: { fontSize: 24, fontWeight: '800', color: colors.black },
   clearText: { fontSize: 12, fontWeight: '600', color: colors.danger },
   emptyContainer: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: colors.bg,
+    backgroundColor: colors.offWhite,
   },
-  emptyTitle: { fontSize: 17, fontWeight: '800', color: colors.textPrimary, marginTop: 16 },
-  emptySubtitle: { fontSize: 13, color: colors.textSecondary, marginTop: 6 },
+  emptyTitle: { fontSize: 17, fontWeight: '800', color: colors.black, marginTop: 16 },
+  emptySubtitle: { fontSize: 13, color: colors.gray, marginTop: 6 },
   cartItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.surface,
-    borderWidth: 1,
-    borderColor: colors.border,
+    backgroundColor: colors.white,
     borderRadius: radius.lg,
     padding: 12,
     marginBottom: 12,
+    ...shadow.card,
   },
-  itemImage: { width: 64, height: 64, borderRadius: radius.md, backgroundColor: colors.surfaceAlt },
-  itemName: { fontSize: 14, fontWeight: '700', color: colors.textPrimary },
-  itemMeta: { fontSize: 11, color: colors.textSecondary, marginTop: 2 },
-  itemPrice: { fontSize: 13, fontWeight: '800', color: colors.primary, marginTop: 4 },
+  itemImage: { width: 64, height: 64, borderRadius: radius.md, backgroundColor: colors.lightGray },
+  itemName: { fontSize: 14, fontWeight: '700', color: colors.black },
+  itemMeta: { fontSize: 11, color: colors.gray, marginTop: 2 },
+  itemPrice: { fontSize: 13, fontWeight: '800', color: colors.black, marginTop: 4 },
   qtyControls: { flexDirection: 'row', alignItems: 'center', marginRight: 10 },
   qtyBtn: {
     width: 26,
     height: 26,
     borderRadius: 13,
-    backgroundColor: colors.surfaceAlt,
+    backgroundColor: colors.lightGray,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  qtyText: { marginHorizontal: 8, fontWeight: '700', color: colors.textPrimary },
+  qtyText: { marginHorizontal: 8, fontWeight: '700', color: colors.black },
   removeBtn: { padding: 4 },
   summary: {
-    backgroundColor: colors.surface,
-    borderWidth: 1,
-    borderColor: colors.border,
+    backgroundColor: colors.white,
     padding: 20,
     marginHorizontal: 20,
     marginBottom: 110,
@@ -204,10 +201,10 @@ const styles = StyleSheet.create({
     ...shadow.deep,
   },
   summaryRow: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 8 },
-  summaryLabel: { fontSize: 13, color: colors.textSecondary },
-  summaryValue: { fontSize: 13, fontWeight: '600', color: colors.textPrimary },
-  totalLabel: { fontSize: 15, fontWeight: '800', color: colors.textPrimary },
-  totalValue: { fontSize: 15, fontWeight: '800', color: colors.primary },
+  summaryLabel: { fontSize: 13, color: colors.gray },
+  summaryValue: { fontSize: 13, fontWeight: '600', color: colors.black },
+  totalLabel: { fontSize: 15, fontWeight: '800', color: colors.black },
+  totalValue: { fontSize: 15, fontWeight: '800', color: colors.black },
   checkoutBtn: {
     flexDirection: 'row',
     backgroundColor: colors.primary,
@@ -217,7 +214,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 14,
     gap: 8,
-    ...shadow.glow,
   },
-  checkoutText: { fontSize: 15, fontWeight: '800', color: colors.onPrimary },
+  checkoutText: { fontSize: 15, fontWeight: '800', color: colors.black },
 });

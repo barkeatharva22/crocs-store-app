@@ -1,31 +1,99 @@
-import React, { createContext, useContext, useState, useMemo } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useMemo,
+  useCallback,
+} from 'react';
 import { INITIAL_PRODUCTS } from '../data/products';
+import { supabase } from '../lib/supabase';
 
 const ProductContext = createContext(null);
 
-let idCounter = 1000;
+const TABLE = 'crocs_products';
+
+function mapRow(row) {
+  return {
+    id: row.id,
+    name: row.name,
+    category: row.category,
+    price: Number(row.price),
+    description: row.description,
+    image: row.image,
+    colors: row.colors || [],
+    sizes: row.sizes || [],
+    rating: row.rating ? Number(row.rating) : 0,
+    reviews: row.reviews || 0,
+    tag: row.tag || 'New',
+    fromDb: true,
+  };
+}
 
 export function ProductProvider({ children }) {
-  const [products, setProducts] = useState(INITIAL_PRODUCTS);
+  const [customProducts, setCustomProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const addProduct = (product) => {
-    idCounter += 1;
-    const newProduct = {
-      id: `custom-${idCounter}`,
-      rating: 0,
-      reviews: 0,
-      tag: 'New',
-      ...product,
-    };
-    setProducts((prev) => [newProduct, ...prev]);
+  const fetchProducts = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    const { data, error: fetchError } = await supabase
+      .from(TABLE)
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (fetchError) {
+      console.log('Supabase fetch error:', fetchError.message);
+      setError(fetchError.message);
+    } else if (data) {
+      setCustomProducts(data.map(mapRow));
+    }
+    setLoading(false);
+  }, []);
+
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
+
+  const addProduct = async (product) => {
+    const { data, error: insertError } = await supabase
+      .from(TABLE)
+      .insert({
+        name: product.name,
+        category: product.category,
+        price: product.price,
+        description: product.description,
+        image: product.image,
+        colors: product.colors,
+        sizes: product.sizes,
+        tag: product.tag || 'New',
+      })
+      .select()
+      .single();
+
+    if (insertError) {
+      throw insertError;
+    }
+
+    const newProduct = mapRow(data);
+    setCustomProducts((prev) => [newProduct, ...prev]);
     return newProduct;
   };
 
-  const removeProduct = (id) => {
-    setProducts((prev) => prev.filter((p) => p.id !== id));
+  const removeProduct = async (id) => {
+    const { error: deleteError } = await supabase.from(TABLE).delete().eq('id', id);
+    if (deleteError) throw deleteError;
+    setCustomProducts((prev) => prev.filter((p) => p.id !== id));
   };
 
-  const value = useMemo(() => ({ products, addProduct, removeProduct }), [products]);
+  // Your listed products show first, seed catalog fills out the rest
+  const products = useMemo(() => [...customProducts, ...INITIAL_PRODUCTS], [customProducts]);
+
+  const value = useMemo(
+    () => ({ products, addProduct, removeProduct, loading, error, refetch: fetchProducts }),
+    [products, loading, error, fetchProducts]
+  );
 
   return <ProductContext.Provider value={value}>{children}</ProductContext.Provider>;
 }
